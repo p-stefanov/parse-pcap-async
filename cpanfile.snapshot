@@ -1,0 +1,276 @@
+# carton snapshot format: version 1.0
+DISTRIBUTIONS
+  CPAN-Meta-2.150010
+    pathname: D/DA/DAGOLDEN/CPAN-Meta-2.150010.tar.gz
+    provides:
+      CPAN::Meta 2.150010
+      CPAN::Meta::Converter 2.150010
+      CPAN::Meta::Feature 2.150010
+      CPAN::Meta::History 2.150010
+      CPAN::Meta::Merge 2.150010
+      CPAN::Meta::Prereqs 2.150010
+      CPAN::Meta::Spec 2.150010
+      CPAN::Meta::Validator 2.150010
+      Parse::CPAN::Meta 2.150010
+    requirements:
+      CPAN::Meta::Requirements 2.121
+      CPAN::Meta::YAML 0.011
+      Carp 0
+      Encode 0
+      Exporter 0
+      ExtUtils::MakeMaker 6.17
+      File::Spec 0.80
+      JSON::PP 2.27300
+      Scalar::Util 0
+      perl 5.008001
+      strict 0
+      version 0.88
+      warnings 0
+  Canary-Stability-2012
+    pathname: M/ML/MLEHMANN/Canary-Stability-2012.tar.gz
+    provides:
+      Canary::Stability 2012
+    requirements:
+      ExtUtils::MakeMaker 0
+  EV-4.22
+    pathname: M/ML/MLEHMANN/EV-4.22.tar.gz
+    provides:
+      EV 4.22
+      EV::MakeMaker undef
+    requirements:
+      Canary::Stability 0
+      ExtUtils::MakeMaker 6.52
+      common::sense 0
+  File-Slurp-9999.19
+    pathname: U/UR/URI/File-Slurp-9999.19.tar.gz
+    provides:
+      File::Slurp 9999.19
+      FileSlurp_12 9999.13
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Fcntl 0
+      POSIX 0
+  Future-0.34
+    pathname: P/PE/PEVANS/Future-0.34.tar.gz
+    provides:
+      Future 0.34
+      Future::Mutex 0.34
+      Future::Utils 0.34
+      Test::Future 0.34
+    requirements:
+      Carp 1.25
+      Test::Builder::Module 0
+      Time::HiRes 0
+      perl 5.008
+  IO-Async-0.70
+    pathname: P/PE/PEVANS/IO-Async-0.70.tar.gz
+    provides:
+      IO::Async 0.70
+      IO::Async::Channel 0.70
+      IO::Async::ChildManager 0.70
+      IO::Async::Debug 0.70
+      IO::Async::File 0.70
+      IO::Async::FileStream 0.70
+      IO::Async::Function 0.70
+      IO::Async::Future 0.70
+      IO::Async::Handle 0.70
+      IO::Async::Listener 0.70
+      IO::Async::Loop 0.70
+      IO::Async::Loop::Poll 0.70
+      IO::Async::Loop::Select 0.70
+      IO::Async::LoopTests 0.70
+      IO::Async::Notifier 0.70
+      IO::Async::OS 0.70
+      IO::Async::OS::MSWin32 0.70
+      IO::Async::OS::cygwin 0.70
+      IO::Async::OS::linux 0.70
+      IO::Async::PID 0.70
+      IO::Async::Process 0.70
+      IO::Async::Protocol 0.70
+      IO::Async::Protocol::LineStream 0.70
+      IO::Async::Protocol::Stream 0.70
+      IO::Async::Resolver 0.70
+      IO::Async::Routine 0.70
+      IO::Async::Signal 0.70
+      IO::Async::Socket 0.70
+      IO::Async::Stream 0.70
+      IO::Async::Test 0.70
+      IO::Async::Timer 0.70
+      IO::Async::Timer::Absolute 0.70
+      IO::Async::Timer::Countdown 0.70
+      IO::Async::Timer::Periodic 0.70
+    requirements:
+      Exporter 5.57
+      File::stat 0
+      Future 0.33
+      Future::Utils 0.18
+      IO::Poll 0
+      Module::Build 0.4004
+      Socket 2.007
+      Storable 0
+      Struct::Dumb 0
+      Time::HiRes 0
+      perl 5.008004
+  IO-Async-Loop-EV-0.02
+    pathname: P/PE/PEVANS/IO-Async-Loop-EV-0.02.tar.gz
+    provides:
+      IO::Async::Loop::EV 0.02
+    requirements:
+      EV 0
+      IO::Async::Loop 0.49
+      IO::Async::LoopTests 0.24
+      Test::More 0
+  JSON-PP-2.27400
+    pathname: M/MA/MAKAMAKA/JSON-PP-2.27400.tar.gz
+    provides:
+      JSON::PP 2.27400
+      JSON::PP::Boolean 2.27400
+      JSON::PP::IncrParser 2.27400
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
+  Log-Log4perl-1.47
+    pathname: M/MS/MSCHILLI/Log-Log4perl-1.47.tar.gz
+    provides:
+      L4pResurrectable 0.01
+      Log::Log4perl 1.47
+      Log::Log4perl::Appender undef
+      Log::Log4perl::Appender::Buffer undef
+      Log::Log4perl::Appender::DBI undef
+      Log::Log4perl::Appender::File undef
+      Log::Log4perl::Appender::Limit undef
+      Log::Log4perl::Appender::RRDs undef
+      Log::Log4perl::Appender::Screen undef
+      Log::Log4perl::Appender::ScreenColoredLevels undef
+      Log::Log4perl::Appender::Socket undef
+      Log::Log4perl::Appender::String undef
+      Log::Log4perl::Appender::Synchronized undef
+      Log::Log4perl::Appender::TestArrayBuffer undef
+      Log::Log4perl::Appender::TestBuffer undef
+      Log::Log4perl::Appender::TestFileCreeper undef
+      Log::Log4perl::Catalyst undef
+      Log::Log4perl::Config undef
+      Log::Log4perl::Config::BaseConfigurator undef
+      Log::Log4perl::Config::DOMConfigurator 0.03
+      Log::Log4perl::Config::PropertyConfigurator undef
+      Log::Log4perl::Config::Watch undef
+      Log::Log4perl::DateFormat undef
+      Log::Log4perl::Filter undef
+      Log::Log4perl::Filter::Boolean undef
+      Log::Log4perl::Filter::LevelMatch undef
+      Log::Log4perl::Filter::LevelRange undef
+      Log::Log4perl::Filter::MDC undef
+      Log::Log4perl::Filter::StringMatch undef
+      Log::Log4perl::InternalDebug undef
+      Log::Log4perl::JavaMap undef
+      Log::Log4perl::JavaMap::ConsoleAppender undef
+      Log::Log4perl::JavaMap::FileAppender undef
+      Log::Log4perl::JavaMap::JDBCAppender undef
+      Log::Log4perl::JavaMap::NTEventLogAppender undef
+      Log::Log4perl::JavaMap::RollingFileAppender undef
+      Log::Log4perl::JavaMap::SyslogAppender undef
+      Log::Log4perl::JavaMap::TestBuffer undef
+      Log::Log4perl::Layout undef
+      Log::Log4perl::Layout::NoopLayout undef
+      Log::Log4perl::Layout::PatternLayout undef
+      Log::Log4perl::Layout::PatternLayout::Multiline undef
+      Log::Log4perl::Layout::SimpleLayout undef
+      Log::Log4perl::Level undef
+      Log::Log4perl::Logger undef
+      Log::Log4perl::MDC undef
+      Log::Log4perl::NDC undef
+      Log::Log4perl::Resurrector undef
+      Log::Log4perl::Util undef
+      Log::Log4perl::Util::Semaphore undef
+      Log::Log4perl::Util::TimeTracker undef
+    requirements:
+      ExtUtils::MakeMaker 0
+      File::Path 2.0606
+      File::Spec 0.82
+      Test::More 0.45
+  Module-Build-0.4220
+    pathname: L/LE/LEONT/Module-Build-0.4220.tar.gz
+    provides:
+      Module::Build 0.4220
+      Module::Build::Base 0.4220
+      Module::Build::Compat 0.4220
+      Module::Build::Config 0.4220
+      Module::Build::Cookbook 0.4220
+      Module::Build::Dumper 0.4220
+      Module::Build::Notes 0.4220
+      Module::Build::PPMMaker 0.4220
+      Module::Build::Platform::Default 0.4220
+      Module::Build::Platform::MacOS 0.4220
+      Module::Build::Platform::Unix 0.4220
+      Module::Build::Platform::VMS 0.4220
+      Module::Build::Platform::VOS 0.4220
+      Module::Build::Platform::Windows 0.4220
+      Module::Build::Platform::aix 0.4220
+      Module::Build::Platform::cygwin 0.4220
+      Module::Build::Platform::darwin 0.4220
+      Module::Build::Platform::os2 0.4220
+      Module::Build::PodParser 0.4220
+    requirements:
+      CPAN::Meta 2.142060
+      CPAN::Meta::YAML 0.003
+      Cwd 0
+      Data::Dumper 0
+      ExtUtils::CBuilder 0.27
+      ExtUtils::Install 0
+      ExtUtils::Manifest 0
+      ExtUtils::Mkbootstrap 0
+      ExtUtils::ParseXS 2.21
+      File::Basename 0
+      File::Compare 0
+      File::Copy 0
+      File::Find 0
+      File::Path 0
+      File::Spec 0.82
+      File::Temp 0.15
+      Getopt::Long 0
+      Module::Metadata 1.000002
+      Parse::CPAN::Meta 1.4401
+      Perl::OSType 1
+      Pod::Man 2.17
+      TAP::Harness 3.29
+      Test::More 0.49
+      Text::Abbrev 0
+      Text::ParseWords 0
+      perl 5.006001
+      version 0.87
+  NetPacket-1.6.0
+    pathname: Y/YA/YANICK/NetPacket-1.6.0.tar.gz
+    provides:
+      NetPacket v1.6.0
+      NetPacket::ARP v1.6.0
+      NetPacket::Ethernet v1.6.0
+      NetPacket::ICMP v1.6.0
+      NetPacket::IGMP v1.6.0
+      NetPacket::IP v1.6.0
+      NetPacket::IPX v1.6.0
+      NetPacket::TCP v1.6.0
+      NetPacket::UDP v1.6.0
+      NetPacket::USBMon v1.6.0
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      constant 0
+      parent 0
+      perl 5.010000
+      strict 0
+      warnings 0
+  Struct-Dumb-0.09
+    pathname: P/PE/PEVANS/Struct-Dumb-0.09.tar.gz
+    provides:
+      Struct::Dumb 0.09
+    requirements:
+      Module::Build 0.4004
+  common-sense-3.74
+    pathname: M/ML/MLEHMANN/common-sense-3.74.tar.gz
+    provides:
+      common::sense 3.74
+    requirements:
+      ExtUtils::MakeMaker 0
