@@ -13,7 +13,7 @@ use File::Slurp qw/write_file/;
 use Scalar::Util qw/refaddr/;
 use Data::Dumper qw/Dumper/;
 use Log::Log4perl qw(:easy);
-Log::Log4perl->easy_init({ level  => $DEBUG, layout => "[%P] %p: %m%n" });
+Log::Log4perl->easy_init({ level => $DEBUG, layout => "[%P] %p: %m%n" });
 
 our $N;
 our $Strip;
@@ -29,8 +29,8 @@ our $Worker = IO::Async::Function->new(
 			#src_port => $tcp->{src_port},
 			#dest_port => $tcp->{dest_port},
 		};
-        #write_file('tcpdump_logs.txt', {append => 1}, Dumper($res));
-        DEBUG Dumper($res);
+		#write_file('tcpdump_logs.txt', {append => 1}, Dumper($res));
+		DEBUG Dumper($res);
 		return 1;
 	},
 	max_workers => 1,
@@ -39,7 +39,7 @@ our $Worker = IO::Async::Function->new(
 
 my $loop = IO::Async::Loop::EV->new;
 $loop->add($Worker);
- 
+
 my $stream = IO::Async::Stream->new(
 	read_handle  => \*STDIN,
 	on_read => sub { 0 },
@@ -50,7 +50,7 @@ $loop->add($stream);
 #$Filter = sub { # NOTE before any stripping
 #	use bytes;
 #	#14 ethernet header +
-#	#20 ip header + 
+#	#20 ip header +
 #	#14th octet of tcp header
 #	#= 48
 #	my $offset = 48;
@@ -61,7 +61,8 @@ $loop->add($stream);
 $Strip = sub {
 	#NetPacket::IP::strip( NetPacket::Ethernet::strip($_[0]) );
 	#NetPacket::Ethernet::strip($_[0]);
-	# or just use unpack
+
+	# or just use unpack:
 	$_[0] = unpack 'x14a*', $_[0];
 };
 
@@ -86,19 +87,20 @@ my $f = $stream
 	})
 ->then(\&parse_packets)
 ->then(sub {
-        return Future->wait_all( values %$Working );
-    })
+		# NOTE is there a better way to do this?
+		return Future->wait_all( values %$Working );
+	})
 ->then_with_f(sub {
-        my $f = shift;
-        DEBUG "stop!";
-        $f->loop->stop;
-        return $f;
-    })
+		my $f = shift;
+		DEBUG "stop";
+		$f->loop->stop;
+		return $f;
+	})
 ->else_with_f(sub {
-        my $f = shift;
+		my $f = shift;
 		warn $_[0];
-        DEBUG "stop!";
-        $f->loop->stop;
+		DEBUG "stop!";
+		$f->loop->stop;
 	})
 #->get;
 ;
@@ -107,7 +109,6 @@ DEBUG "start!";
 $loop->run;
 
 
-################################################################################
 sub determine_endianness {
 	my ($stream, $magic) = @_;
 	DEBUG "determine_endianness";
@@ -126,37 +127,39 @@ sub parse_per_file_h {
 sub parse_packets {
 	DEBUG "parse_packets";
 	my ($stream) = @_;
-	my $eof;
+	my ($p, $eof);
+	my $packet_header = {};
+	my @keys = qw/ts_seconds ts_micros cap_len real_len/;
+
 	return repeat {
+
 		$stream
 		->read_exactly(16)
 		->then(sub {
-				my $p_head = shift;
-				$eof = shift;
+				($p, $eof) = @_;
 
-				if ($eof) {
-					return Future->done;
-				}
+				$eof and return Future->fail('eof');
 
-				my $packet_header = {};
-				my @keys = qw/ts_seconds ts_micros cap_len real_len/;
-				@{ $packet_header }{@keys} = unpack uc($N) x 4, $p_head;
+				@{ $packet_header }{@keys} = unpack uc($N) x 4, $p;
 
-				$stream
-				->read_exactly($packet_header->{cap_len})
-				->then(sub {
-						my $p = shift;
-						$eof = shift;
+				return $stream->read_exactly($packet_header->{cap_len});
+			})
+		->then(sub {
+				($p, $eof) = @_;
 
-						$Filter->($p) or return Future->done() if ref $Filter eq 'CODE';
-						$p = $Strip->($p) if ref $Strip eq 'CODE';
+				$Filter->($p) or return Future->done() if ref $Filter eq 'CODE';
+				$p = $Strip->($p) if ref $Strip eq 'CODE';
 
-						# is this the way to do this?
-                        my $w; $w = $Worker->call(args => [ $p ], on_result => sub { $w and delete $Working->{refaddr $w}; 1; });
-                        $Working->{refaddr $w} = $w;
+				# NOTE is there a better way to do this?
+                my $w; $w = $Worker->call(
+					args => [ $p ],
+					on_result => sub { $w and delete $Working->{refaddr $w}; }
+				);
+                $Working->{refaddr $w} = $w;
 
-						return Future->done;
-					});
-			});
+				return Future->done;
+			})
+		->else(sub { DEBUG "eof reached"; Future->done; });
+
 	} until => sub { $eof };
 }
