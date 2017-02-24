@@ -151,11 +151,11 @@ sub parse_packets {
 				$p = $Strip->($p) if ref $Strip eq 'CODE';
 
 				# NOTE is there a better way to do this?
-                my $w; $w = $Worker->call(
+				my $w; $w = $Worker->call(
 					args => [ $p ],
 					on_result => sub { $w and delete $Working->{refaddr $w}; }
 				);
-                $Working->{refaddr $w} = $w;
+				$Working->{refaddr $w} = $w;
 
 				return Future->done;
 			})
