@@ -66,7 +66,6 @@ $Strip = sub {
 	$_[0] = unpack 'x14a*', $_[0];
 };
 
-our $Working = {};
 my $f = $stream
 #my @res = $stream
 ->read_exactly(4)
@@ -88,7 +87,7 @@ my $f = $stream
 ->then(\&parse_packets)
 ->then(sub {
 		# NOTE is there a better way to do this?
-		return Future->wait_all( values %$Working );
+		return Future->wait_all( values %{$Worker->{IO_Async_Notifier__futures}} );
 	})
 ->then_with_f(sub {
 		my $f = shift;
@@ -150,12 +149,7 @@ sub parse_packets {
 				$Filter->($p) or return Future->done() if ref $Filter eq 'CODE';
 				$p = $Strip->($p) if ref $Strip eq 'CODE';
 
-				# NOTE is there a better way to do this?
-				my $w; $w = $Worker->call(
-					args => [ $p ],
-					on_result => sub { $w and delete $Working->{refaddr $w}; }
-				);
-				$Working->{refaddr $w} = $w;
+				$Worker->call( args => [ $p ], on_result => sub { 1 } );
 
 				return Future->done;
 			})
