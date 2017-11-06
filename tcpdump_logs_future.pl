@@ -10,7 +10,6 @@ use IO::Async::Loop::EV ();
 use IO::Async::Function ();
 use Future::Utils qw/repeat/;
 use File::Slurp qw/write_file/;
-use Scalar::Util qw/refaddr/;
 use Data::Dumper qw/Dumper/;
 use Log::Log4perl qw(:easy);
 Log::Log4perl->easy_init({ level => $DEBUG, layout => "[%P] %p: %m%n" });
@@ -66,7 +65,9 @@ $Strip = sub {
 	$_[0] = unpack 'x14a*', $_[0];
 };
 
-my $f = $stream
+DEBUG "start!";
+
+$stream
 #my @res = $stream
 ->read_exactly(4)
 ->then(sub {
@@ -89,24 +90,13 @@ my $f = $stream
 		# NOTE is there a better way to do this?
 		return Future->wait_all( values %{$Worker->{IO_Async_Notifier__futures}} );
 	})
-->then_with_f(sub {
-		my $f = shift;
-		DEBUG "stop";
-		$f->loop->stop;
-		return $f;
-	})
-->else_with_f(sub {
-		my $f = shift;
+->else(sub {
 		warn $_[0];
-		DEBUG "stop!";
-		$f->loop->stop;
+		return Future->done;
 	})
-#->get;
-;
+->get;
 
-DEBUG "start!";
-$loop->run;
-
+DEBUG "fin!";
 
 sub determine_endianness {
 	my ($stream, $magic) = @_;
@@ -146,8 +136,8 @@ sub parse_packets {
 		->then(sub {
 				($p, $eof) = @_;
 
-				$Filter->($p) or return Future->done() if ref $Filter eq 'CODE';
-				$p = $Strip->($p) if ref $Strip eq 'CODE';
+				$Filter->($p) or return Future->done() if $Filter;
+				$p = $Strip->($p) if $Strip;
 
 				$Worker->call( args => [ $p ], on_result => sub { 1 } );
 
